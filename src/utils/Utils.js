@@ -116,7 +116,9 @@ class Utils {
   }
 
   static roundToBase(x, base) {
-    return Math.pow(base, Math.floor(Math.log(x) / Math.log(base)))
+    return x > 0
+      ? Math.pow(base, Math.floor(Math.log(x) / Math.log(base)))
+      : -Math.pow(base, Math.floor(Math.log(-x) / Math.log(base)))
   }
 
   static parseNumber(val) {

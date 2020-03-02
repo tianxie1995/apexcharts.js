@@ -286,9 +286,10 @@ class CoreUtils {
         return s.map((d) => {
           if (d === null) return null
 
-          const logVal =
-            (Math.log(d) - Math.log(w.globals.minYArr[i])) /
-            (Math.log(w.globals.maxYArr[i]) - Math.log(w.globals.minYArr[i]))
+          // const logVal =
+          //   (Math.log(d) - Math.log(w.globals.minYArr[i])) /
+          //   (Math.log(w.globals.maxYArr[i]) - Math.log(w.globals.minYArr[i]))
+          const logVal = Math.log10(d)
 
           return logVal
         })
@@ -313,7 +314,11 @@ class CoreUtils {
         let range = 1
         gl.seriesLog.forEach((s, si) => {
           s.forEach((v) => {
-            if (w.config.yaxis[si] && w.config.yaxis[si].logarithmic) {
+            if (
+              w.config.yaxis[si] &&
+              w.config.yaxis[si].logarithmic &&
+              v !== null
+            ) {
               maxY = Math.max(v, maxY)
               minY = Math.min(v, minY)
             }

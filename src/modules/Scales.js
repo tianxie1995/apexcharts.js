@@ -181,11 +181,10 @@ export default class Range {
       // calculate adjustment factor
       let scale = (max - min) / (yMax - yMin)
 
-      const logVal = Math.pow(base, min + scale * (niceNumber - min))
-      return (
-        Math.round(logVal / Utils.roundToBase(logVal, base)) *
-        Utils.roundToBase(logVal, base)
-      )
+      //const logVal = Math.pow(base, min + scale * (niceNumber - min))
+
+      const logVal = Math.log10(niceNumber)
+      return logVal
     })
 
     // Math.floor may have rounded the value to 0, revert back to 1
@@ -210,11 +209,11 @@ export default class Range {
 
     let diff = Math.abs(maxY - minY)
 
-    if (y.logarithmic && diff <= 5) {
-      gl.invalidLogScale = true
-    }
+    // if (y.logarithmic && diff <= 5) {
+    //   gl.invalidLogScale = true
+    // }
 
-    if (y.logarithmic && diff > 5) {
+    if (y.logarithmic) {
       gl.allSeriesCollapsed = false
       gl.yAxisScale[index] = this.logarithmicScale(
         index,
